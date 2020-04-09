@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %} | Create Project {% endblock %}
+
+{% block content %}
+
+<h1>USER: {{ user.username }}</h1>
+<h1></h1>
+    <h3>UPLOAD DATASET</h3>
+    <form method="post" enctype="multipart/form-data" action="{% url 'load_dataset' %}">
+        {% csrf_token %}
+        {{ form.title }}
+        {{ form.description }}
+        {{ form.dataset }}
+        <button type="submit">Upload</button>
+    </form>
+
+{% endblock %}
