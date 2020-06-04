@@ -11,4 +11,5 @@ urlpatterns = [
     path('model_selection', views.model_selection, name='model_selection'),
     path('model_exec', views.model_exec, name='model_exec'),
     path('MLP', views.MLP, name='MLP'),
+    path('LSTM_M', views.LSTM_M, name='LSTM_M'),
 ]

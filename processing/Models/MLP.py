@@ -135,7 +135,7 @@ def MLP(request):
             data = series.values
             # data split
             n_test = int(request.POST['ratio'])
-            print(n_test)
+            print('MLP')
             # define config
             config = [24, 500, 100, 100]
             # grid search
