@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'pages',
     'accounts',
     'processing',
+    'django_cleanup',
 ]
 
 MIDDLEWARE = [

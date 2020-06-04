@@ -19,6 +19,10 @@ class Project(models.Model):
     description = models.TextField(blank=True)
     uploaded_at = models.DateTimeField(auto_now_add=True)
     dataset = models.FileField(upload_to=user_directory_path)
+    label = models.CharField(max_length=200,blank=True)
+    date = models.CharField(max_length=200, blank=True)
+    ratio = models.IntegerField(blank=True, default=75)
+    clean_data = models.FileField(upload_to=user_directory_path, blank=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='documents', on_delete=models.CASCADE)
 
     def __str__(self):
