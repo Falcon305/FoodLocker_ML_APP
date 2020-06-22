@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from sklearn.preprocessing import LabelEncoder
 from django.contrib import messages, auth
 import numpy as np
-from .models import Project
+from .models import Project, Alg
 from .forms import DocumentForm
 import pandas as pd
 import io
@@ -207,4 +207,22 @@ def model_exec(request):
     else:
         return redirect("index")
 
-
+@login_required
+def save_md(request):
+    if request.method == 'POST':
+        try:
+            name = request.POST['name']
+            nw = request.POST['nw']
+            score = request.POST['score']
+            al = Alg()
+            al.name = name
+            al.user = request.user
+            al.md_pk = nw
+            al.score = score
+            al.save()
+            messages.success(request, 'Model Saved')
+            return render(request, 'accounts/als.html')
+        except Exception as e:
+            return render(request, 'processing/result.html', {"Error": e})
+    else:
+        return redirect("index")

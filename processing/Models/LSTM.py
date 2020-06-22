@@ -123,9 +123,10 @@ def LSTM_M(request):
 			print('Test RMSE: %.3f' % rmse)
 			score = rmse
 			md = "LSTM"
-			
+			ems='RMSE'
 			return render(request, 'models/result.html', {"md": md,                      
-                                                              "score": score})
+                                                              "score": score,
+															  'ems': ems})
 
 		except Exception as e:
 			return render(request, 'models/result.html', {"Error": e})

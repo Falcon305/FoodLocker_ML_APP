@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %} | Models {% endblock %}
+
+{% block content %}
+    <br>
+ <br>
+     <br>
+ <br>
+
+	<div class="col-md">
+		<h5>You have : {{total_models}} saved Models</h5>
+		<hr>
+		{% include 'partials/_alerts.html' %}
+		<div class="card card-body">
+			
+			<table class="table table-md">
+				<tr>
+					<th>Name</th>
+					<th>Run</th>
+					<th>Remove</th>
+				</tr>
+
+				{% for al in als %}
+					<tr>
+						<td>{{al.name}}</td>
+						<td><a class="btn btn-sm btn-info" href="{% url 'run' al.id %}">Run</a></td>
+
+						<td><a class="btn btn-sm btn-danger" href="{% url 'deleteM' al.id %}">Delete</a></td>
+
+					</tr>
+				{% endfor %}
+
+		
+			</table>
+		</div>
+	</div>
+
+</div>
+
+
+{% endblock %}

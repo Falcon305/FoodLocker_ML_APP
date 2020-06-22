@@ -13,6 +13,20 @@
 <h2> {{ md }} Result </h2>
 <br>
 <div class="col text-center">
-    <h3> RMSE : {{ score }} </h3>
+    <h3> {{ ems }} : {{ score }} </h3>
 </div>
+<form  method="post" enctype="multipart/form-data" action="{% url 'save_md'  %}">
+{% csrf_token %}
+<div class="col text-center">
+{% include 'partials/_alerts.html' %}
+    <h2> Save Model </h2>
+    <label for="name">Title</label>
+    <input type="text" name="name" class="form-control" required>
+    <input type="hidden" name="nw" value="{{ nw }}">
+    <input type="hidden" name="score" value="{{ score }}">
+    <br>
+    <button class="btn btn-primary btn-block" type="submit">Save Model</button>
+
+</div>
+</form>
 {% endblock %}

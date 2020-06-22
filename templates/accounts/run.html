@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %} | Run Model {% endblock %}
+
+{% block content %}
+
+<br>
+    <br>
+ <br>
+     <br>
+ <br>
+     <br>
+ <br>
+
+	<div class="col text-center">
+
+			<h2>"{{al.name}}"</h2>
+            <h2>"{{h5}}"</h2>
+			<h2>"Score : {{al.score}}"</h2>
+			<form action="{% url 'run' al.id  %}" method="POST">
+				
+				{% csrf_token %}
+				<input type="hidden" name="name" value="{{ name }}">
+				<input type="hidden" name="h5" value="{{ h5 }}">
+
+				<input class="btn btn-danger" type="submit" name="Confirm">
+			</form>
+	</div>
+
+
+  {% endblock %}

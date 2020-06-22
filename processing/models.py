@@ -8,6 +8,8 @@ def user_directory_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
     return 'user_{0}/raw_csv/{1}'.format(instance.user.username, filename)
 
+def pkl_path(instance, pkl):
+    return 'user_{0}/models/{1}'.format(instance.user.username, pkl)
 # class DataSet(models.Model):
 #     uploaded_at = models.DateTimeField(auto_now_add=True)
 #     Dataset = models.FileField(upload_to=user_directory_path)
@@ -27,3 +29,12 @@ class Project(models.Model):
 
     def __str__(self):
         return self.title
+    
+class Alg(models.Model):
+    name = models.CharField(max_length=200)
+    md_pk = models.CharField(max_length=200)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    score = models.FloatField()
+    #project_id = models.ForeignKey(Project, on_delete=models.CASCADE)
+
+    

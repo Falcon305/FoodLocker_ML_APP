@@ -1,7 +1,7 @@
 from django.contrib import messages, auth
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from processing.models import Project
+from processing.models import Project, Alg
 from django.shortcuts import (get_object_or_404, 
                               render,
                               redirect, 
@@ -74,7 +74,43 @@ def dash(request):
 	'total_projects':total_projects }
 	return render(request, 'accounts/dashboard.html', context)
 
+@login_required(login_url='login')
+def mdls(request):
+  als = Alg.objects.filter(user = request.user)
+  total_models = als.count()
+  context = {'als':als,
+	'total_models':total_models }
+  return render(request, 'accounts/als.html', context)
 
+@login_required(login_url='login')
+def run(request, pk):
+  al = Alg.objects.get(id=pk)
+  name = al.name
+  h5 = al.md_pk
+  #my_file = "media/user_{0}/trained_model/{1}".format(request.user, h5 + '.h5'))
+  context = {'al':al,
+             'name':name,
+             'h5':h5}
+  return render(request, 'accounts/run.html', context)
+
+@login_required(login_url='login')
+def run2(request, pk):
+  name = request.POST['name']
+  h5 = request.POST['h5']
+  context = {'name':name,
+             'h5':h5}
+  return render(request, 'accounts/run.html', context)
+
+@login_required(login_url='login')
+def deleteM(request, pk):
+  al = Alg.objects.get(id=pk)
+  creator = al.user.username
+  if request.method == "POST" and request.user.is_authenticated and request.user.username == creator:
+    al.delete()
+    return redirect('mdls')
+  context = {'al':al}
+  return render(request, 'accounts/deletem.html', context)
+  
 @login_required(login_url='login')
 def deleteProject(request, pk):
   project = Project.objects.get(id=pk)

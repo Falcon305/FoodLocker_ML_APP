@@ -10,6 +10,10 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 from matplotlib import pyplot
 from django.shortcuts import render, redirect
+import joblib
+import os
+import random
+from processing.models import Alg, Project
 # split a univariate dataset into train/test sets
 def train_test_split(data, n_test):
   return data[:-n_test], data[-n_test:]
@@ -97,24 +101,10 @@ def summarize_scores(name, scores):
   #pyplot.show()
   return score_std
 
-# series = read_csv('B2BForecast2.csv', header=0, index_col=0)
-# data = series.values
-# # data split
-# n_test = 12
-# # define config
-# config = [24, 500, 100, 100]
-# # grid search
-# scores = repeat_evaluate(data, config, n_test)
-# # summarize scores
-# summarize_scores('mlp', scores)
-
-# series_to_supervised(data, n_in=3, n_out=1)
-# train = data[:-n_test]
-# test = data[-n_test:]
-# model_fit(train,config)
-# walk_forward_validation(data, n_test, config)
-# history = [x for x in train]
-# model_predict(model_fit(train, config), history, config)
+def randString(length=8):
+    # put your letters in the following string
+    your_letters='abcdefghiz4789234KNVSDFtrgfhjklm'
+    return ''.join((random.choice(your_letters) for i in range(length)))
 
 def MLP(request):
     if request.method == 'POST':
@@ -122,16 +112,6 @@ def MLP(request):
             file_name = request.POST['filename']
             my_file = "media/user_{0}/processed_csv/{1}".format(request.user, file_name)
             series = read_csv(my_file, header=0, index_col=0)
-            # features = request.POST.getlist('features')
-            # features_list = []
-            # for feature in features:
-            #     feature = feature[1:-1]
-            #     feature = feature.strip().split(", ")
-            #     for i in feature:
-            #         features_list.append(i[1:-1])
-            # label = request.POST['label']
-            # ratio = request.POST['ratio']
-            # -----------------------------------------------------------------------
             data = series.values
             # data split
             n_test = int(request.POST['ratio'])
@@ -146,13 +126,24 @@ def MLP(request):
             series_to_supervised(data, n_in=3, n_out=1)
             train = data[:-n_test]
             test = data[-n_test:]
-            model_fit(train,config)
             walk_forward_validation(data, n_test, config)
             history = [x for x in train]
             model_predict(model_fit(train, config), history, config)
             md = "MLP"
+            ems='RMSE'
+            hh = model_fit(train,config)
+            
+            if not os.path.exists("media/user_{}/trained_model".format(request.user)):
+                   os.makedirs("media/user_{}/trained_model".format(request.user))
+            strt = randString()
+            nw = strt + file_name.split('.')[0]
+            hh.save("media/user_{0}/trained_model/{1}".format(request.user, nw + '.h5'))
+            # download_link = "media/user_{0}/trained_model/{1}".format(request.user,  'fool.pkl')
+            # joblib.dump(model_fit(train,config), download_link)
             return render(request, 'models/result.html', {"md": md,                      
-                                                              "score": score})
+                                                              "score": score,
+                                                              'ems': ems,
+                                                              'nw': nw})
 
         except Exception as e:
             return render(request, 'models/result.html', {"Error": e})

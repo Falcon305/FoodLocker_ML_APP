@@ -9,6 +9,7 @@
                     <li class="nav-item" role="presentation"><a class="nav-link" href="{% url 'about' %}">About Us</a></li>
                     {% if user.is_authenticated %}
                     <li class="nav-item" role="presentation"><a class="nav-link" href="{% url 'dash' %}">Dashboard</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="{% url 'mdls' %}">Models</a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link" href="{% url 'create_project' %}">Create Project</a></li>
                     <li class="nav-item" role="presentation">
                                   <a href="javascript:{document.getElementById('logout').submit()}" class="nav-link">

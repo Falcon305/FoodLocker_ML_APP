@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %} | MLP{% endblock %}
+{% block title %} | ARIMA{% endblock %}
 
 {% block content %}
 <br>
@@ -11,7 +11,7 @@
 <br>
 
 <div class="col text-center">
-<form id="myForm" method="post" enctype="multipart/form-data" action="{% url 'MLP'  %}">
+<form id="myForm" method="post" enctype="multipart/form-data" action="{% url 'ARIMA_M'  %}">
             {% csrf_token %}
                 <h2>  SELECTED MODEL: {{ model|upper }} </h2>
                 <br>
@@ -22,7 +22,6 @@
                 <input type="hidden" name="label" value="{{ label }}">
                 <input type="hidden" name="ratio" value="{{ ratio }}">
                 <input type="hidden" name="filename" value="{{ filename }}">
-                <input type="hidden" name="nw" value="{{ nw }}">
 
                <br>
 <br>

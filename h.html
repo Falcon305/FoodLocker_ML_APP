@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+<body >
+      <div id="kada" >0</div>
+    <button onclick="counterUp();" class="button">+</button>
+       <button onclick="counterDown();" class="button">-</button>
+</body>
+  <script>
+  var label = document.getElementById("kada").innerHTML;
+  console.log(label);
+  var counter = Number(label);
+  function counterUp(){
+      document.getElementById("kada").innerHTML = counter++;
+  }
+  function counterDown(){
+      document.getElementById("kada").innerHTML = counter--;
+  }
+  </script>
+</html>

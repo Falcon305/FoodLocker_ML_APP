@@ -10,6 +10,8 @@ urlpatterns = [
     path('preprocessing', views.preprocessing, name='preprocessing'),
     path('model_selection', views.model_selection, name='model_selection'),
     path('model_exec', views.model_exec, name='model_exec'),
+    path('save_md', views.save_md, name='save_md'),
     path('MLP', views.MLP, name='MLP'),
     path('LSTM_M', views.LSTM_M, name='LSTM_M'),
+    path('ARIMA_M', views.ARIMA_M, name='ARIMA_M'),
 ]
