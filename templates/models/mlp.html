@@ -10,27 +10,67 @@
 <br>
 <br>
 
-<div class="col text-center">
-<form id="myForm" method="post" enctype="multipart/form-data" action="{% url 'MLP'  %}">
-            {% csrf_token %}
-                <h2>  SELECTED MODEL: {{ model|upper }} </h2>
+<div class="container">
+<h2>  SELECTED MODEL: {{ model|upper }} </h2>
                 <br>
                 <h2>  Number of test data points: {{ ratio }} </h2>
                 <br>
 <br>
-                <input type="hidden" name="features" value="{{ features }}">
+                
+
+               <br>
+<br>
+    <div class="row">
+      <div class="offset-lg-2 col-lg-8 col-sm-8 col-8 border rounded main-section">
+        <h3 class="text-center text-inverse">MLP HyperParameters</h3>
+        <hr>
+        <form id="myForm" method="post" enctype="multipart/form-data" action="{% url 'MLP'  %}">
+            {% csrf_token %}
+            <input type="hidden" name="features" value="{{ features }}">
                 <input type="hidden" name="label" value="{{ label }}">
                 <input type="hidden" name="ratio" value="{{ ratio }}">
                 <input type="hidden" name="filename" value="{{ filename }}">
                 <input type="hidden" name="nw" value="{{ nw }}">
-
-               <br>
-<br>
-                    <button id="btnbtn" type="submit" class="btn btn-danger">Train Model</button>
-
-                </div>
-            </form>
+          <div class="row">
+            <div class="col-lg-6 col-sm-6 col-12">
+               <div class="form-group">
+                <label class="text-inverse" >Number of lags observations</label>
+                <input type="text" class="form-control" value="24" name="n_input" required>
+              </div>
             </div>
+            <div class="col-lg-6 col-sm-6 col-12">
+              <div class="form-group">
+                <label class="text-inverse">Number of nodes</label>
+                <input type="text" class="form-control" value="500" name="n_nodes" required>
+              </div>  
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 col-sm-12 col-12">
+              <div class="form-group">
+                <label class="text-inverse">Epoches Number</label>
+                <input type="text" class="form-control" value="100" name="n_epoches" required>
+              </div>  
+            </div>
+            <div class="col-lg-6 col-sm-6 col-12">
+              <div class="form-group">
+                <label class="text-inverse">Batch Number</label>
+                <input type="text" class="form-control" value="100" name="n_batch" required>
+              </div>  
+            </div>
+          </div>
+
+          <hr>
+          <div class="row">
+            <div class="col-lg-12 col-sm-12 col-12 text-center">
+             <button id="btnbtn" type="submit" class="btn btn-danger">Train Model</button>
+            </div>
+          </div>  
+        </form>
+      </div>
+    </div>  
+</div>
+
             <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 
             <script>

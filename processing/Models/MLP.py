@@ -110,6 +110,10 @@ def MLP(request):
     if request.method == 'POST':
         try:
             file_name = request.POST['filename']
+            n_input = int(request.POST['n_input'])
+            n_nodes = int(request.POST['n_nodes'])
+            n_epoches = int(request.POST['n_epoches'])
+            n_batch = int(request.POST['n_batch'])
             my_file = "media/user_{0}/processed_csv/{1}".format(request.user, file_name)
             series = read_csv(my_file, header=0, index_col=0)
             data = series.values
@@ -117,7 +121,8 @@ def MLP(request):
             n_test = int(request.POST['ratio'])
             print('MLP')
             # define config
-            config = [24, 500, 100, 100]
+            config = [n_input, n_nodes, n_epoches, n_batch]
+            print(n_nodes)
             # grid search
             scores = repeat_evaluate(data, config, n_test)
             # summarize scores
@@ -128,7 +133,7 @@ def MLP(request):
             test = data[-n_test:]
             walk_forward_validation(data, n_test, config)
             history = [x for x in train]
-            model_predict(model_fit(train, config), history, config)
+            next_p = model_predict(model_fit(train, config), history, config)
             md = "MLP"
             ems='RMSE'
             hh = model_fit(train,config)
@@ -143,7 +148,8 @@ def MLP(request):
             return render(request, 'models/result.html', {"md": md,                      
                                                               "score": score,
                                                               'ems': ems,
-                                                              'nw': nw})
+                                                              'nw': nw,
+                                                              'next_p':next_p})
 
         except Exception as e:
             return render(request, 'models/result.html', {"Error": e})
