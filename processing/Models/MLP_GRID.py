@@ -195,3 +195,4 @@ def MLP_GRID(request):
 
         except Exception as e:
             return render(request, 'models/result.html', {"Error": e})
+          
