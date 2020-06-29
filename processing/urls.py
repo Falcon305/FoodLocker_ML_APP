@@ -14,4 +14,6 @@ urlpatterns = [
     path('MLP', views.MLP, name='MLP'),
     path('LSTM_M', views.LSTM_M, name='LSTM_M'),
     path('ARIMA_M', views.ARIMA_M, name='ARIMA_M'),
+    path('MLP_GRID', views.MLP_GRID, name='MLP_GRID'),
+    path('mgs', views.mgs, name='mgs'),
 ]

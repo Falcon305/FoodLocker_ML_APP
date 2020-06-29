@@ -157,6 +157,7 @@ def measure_rmse(actual, predicted):
   return sqrt(mean_squared_error(actual, predicted))
 
 # difference dataset
+ 
 def difference(data, order):
   return [data[i] - data[i - order] for i in range(order, len(data))]
 
@@ -177,6 +178,7 @@ def model_fit(train, config):
   model.add(Dense(1))
   model.compile(loss='mse', optimizer='adam')
   # fit model
+ 
   model.fit(train_x, train_y, epochs=n_epochs, batch_size=n_batch, verbose=0)
   return model
 
@@ -193,6 +195,7 @@ def model_predict(model, history, config):
   x_input = array(history[-n_input:]).reshape((1, n_input))
   # make forecast
   yhat = model.predict(x_input, verbose=0)
+  print(correction + yhat[0])
   # correct forecast if it was differenced
   return correction + yhat[0]
 

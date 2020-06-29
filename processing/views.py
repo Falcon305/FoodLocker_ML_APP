@@ -226,3 +226,8 @@ def save_md(request):
             return render(request, 'processing/result.html', {"Error": e})
     else:
         return redirect("index")
+    
+@login_required
+def mgs(request):
+        file_name = request.GET['filename']
+        return render(request, 'processing/mlpg.html', {"filename": file_name})

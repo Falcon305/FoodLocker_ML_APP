@@ -67,6 +67,16 @@
             </div>
           </div>  
         </form>
+        <form id="myForm2" method="post" enctype="multipart/form-data" action="{% url 'MLP_GRID'  %}">
+            {% csrf_token %}
+            <input type="hidden" name="label" value="{{ label }}">
+                <input type="hidden" name="ratio" value="{{ ratio }}">
+                <input type="hidden" name="filename" value="{{ filename }}">
+                <input type="hidden" name="nw" value="{{ nw }}">
+            <div class="col-lg-12 col-sm-12 col-12 text-center">
+             <button id="bonbon" type="submit" class="btn btn-primary">Grid Search</button>
+            </div>
+          </form>
       </div>
     </div>  
 </div>
@@ -83,6 +93,19 @@
                         `<span class="spinner-border spinner-border-sm" role="danger" aria-hidden="true"></span> Training...`
                     );
                     $("#myForm").submit();
+                    });
+                });
+                </script>
+                  <script>
+                $(document).ready(function() {
+                    $("#bonbon").click(function() {
+                    // disable button
+                    $(this).prop("disabled", true);
+                    // add spinner to button
+                    $(this).html(
+                        `<span class="spinner-border spinner-border-sm" role="danger" aria-hidden="true"></span> Training...`
+                    );
+                    $("#myForm2").submit();
                     });
                 });
                 </script>
